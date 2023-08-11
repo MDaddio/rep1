@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Loja de Produtos</title>
+</head>
+<body>
+    <div class="login-container">
+        <form id="login-form">
+            <img src="C:\Users\madad\Desktop\Site\Logo.jpg" alt="Logo da Empresa">
+            <form id="login-form">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div class="product-container" id="product-container" style="display: none;">
+        <div class="product">
+            <img src="C:\Users\madad\Desktop\Site\Lamina.jpg" alt="Lâmina de Barbear">
+            <h2>Lâmina de Barbear</h2>
+            <button class="buy-button">Comprar</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\madad\Desktop\Site\Barbeador.jpg" alt="Barbeador">
+            <h2>Barbeador</h2>
+            <button class="buy-button">Comprar</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\madad\Desktop\Site\Descartavel.jpg" alt="Descartavel">
+            <h2>Descartavel</h2>
+            <button class="buy-button">Comprar</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\madad\Desktop\Site\Aparelho.jpg" alt="Pareio">
+            <h2>Aparelho</h2>
+            <button class="buy-button">Comprar</button>
+        </div>
+        <div class="product">
+            <img src="C:\Users\madad\Desktop\Site\Máquina.jpg" alt="Máquina">
+            <h2>Maquina</h2>
+            <button class="buy-button">Comprar</button>
+        </div>
+    </div>
+
+  
+
+
+
+
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const productContainer = document.getElementById('product-container');
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'M' && password === '1') {
+                loginForm.style.display = 'none';
+                productContainer.style.display = 'flex'; // Alterado para flex
+            } else {
+                alert('Credenciais inválidas. Tente novamente.');
+            }
+        });
+    </script>
+</body>
+</html>
