@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPT-3.5 Chatbot</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .chat-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+  }
+  .user {
+    text-align: right;
+    font-weight: bold;
+  }
+  .chat {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GPT-3.5 Chatbot</h1>
+  <div class="chat">
+    <div class="chat-box user">
+      Olá! Aqui é o GPT 3.5.
+    </div>
+    <div class="chat-box chat">
+      Como posso te ajudar?
+    </div>
+  </div>
+  <textarea id="user-input" placeholder="Type your message..."></textarea>
+  <button id="send-button">Send</button>
+</div>
+
+<script>
+const apiKey = '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'; // Replace with your GPT-3.5 API key
+const chatContainer = document.querySelector('.chat');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-button');
+
+sendButton.addEventListener('click', async () => {
+  const userMessage = userInput.value.trim();
+  if (userMessage === '') return;
+
+  // Add user message to chat container
+  chatContainer.innerHTML += `<div class="chat-box user">${userMessage}</div>`;
+  
+  // Clear user input
+  userInput.value = '';
+
+  // Call GPT-3.5 API
+  const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      prompt:  "Sua tarefa é agir como um psicólogo que troca mensagens com um paciente, as respostas devem ser curtas, com 10 palavras no máximo. que diz:\n\n'paciente: " + userMessage + "'\n\nO psicólogo responde:",
+      max_tokens: 50,
+      temperature: 0.6,
+      stop: "\n"
+    }),
+  });
+
+  const responseData = await response.json();
+
+  // Add GPT-3.5 response to chat container
+  const gptResponse = responseData.choices[0].text.trim();
+  chatContainer.innerHTML += `<div class="chat-box chat">${gptResponse}</div>`;
+  
+  // Scroll chat to the bottom
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+});
+</script>
+</body>
+</html>
